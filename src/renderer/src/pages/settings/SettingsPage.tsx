@@ -12,11 +12,8 @@ import {
   Info,
   MonitorCog,
   Package,
-  PictureInPicture2,
   Search,
-  Server,
   Settings2,
-  TextCursorInput,
   Zap
 } from 'lucide-react'
 import type { FC } from 'react'
@@ -32,11 +29,8 @@ import GeneralSettings from './GeneralSettings'
 import MCPSettings from './MCPSettings'
 import MemorySettings from './MemorySettings'
 import { ProviderList } from './ProviderSettings'
-import QuickAssistantSettings from './QuickAssistantSettings'
 import QuickPhraseSettings from './QuickPhraseSettings'
-import SelectionAssistantSettings from './SelectionAssistantSettings/SelectionAssistantSettings'
 import ShortcutSettings from './ShortcutSettings'
-import { ApiServerSettings } from './ToolSettings/ApiServerSettings'
 import WebSearchSettings from './WebSearchSettings'
 
 const SettingsPage: FC = () => {
@@ -102,12 +96,6 @@ const SettingsPage: FC = () => {
               {t('memory.title')}
             </MenuItem>
           </MenuItemLink>
-          <MenuItemLink to="/settings/api-server">
-            <MenuItem className={isRoute('/settings/api-server')}>
-              <Server size={18} />
-              {t('apiServer.title')}
-            </MenuItem>
-          </MenuItemLink>
           <MenuItemLink to="/settings/docprocess">
             <MenuItem className={isRoute('/settings/docprocess')}>
               <FileCode size={18} />
@@ -127,19 +115,6 @@ const SettingsPage: FC = () => {
             </MenuItem>
           </MenuItemLink>
           <Divider />
-          <MenuItemLink to="/settings/quickAssistant">
-            <MenuItem className={isRoute('/settings/quickAssistant')}>
-              <PictureInPicture2 size={18} />
-              {t('settings.quickAssistant.title')}
-            </MenuItem>
-          </MenuItemLink>
-          <MenuItemLink to="/settings/selectionAssistant">
-            <MenuItem className={isRoute('/settings/selectionAssistant')}>
-              <TextCursorInput size={18} />
-              {t('selection.name')}
-            </MenuItem>
-          </MenuItemLink>
-          <Divider />
           <MenuItemLink to="/settings/about">
             <MenuItem className={isRoute('/settings/about')}>
               <Info size={18} />
@@ -152,7 +127,6 @@ const SettingsPage: FC = () => {
             <Route path="provider" element={<ProviderList />} />
             <Route path="model" element={<ModelSettings />} />
             <Route path="websearch/*" element={<WebSearchSettings />} />
-            <Route path="api-server" element={<ApiServerSettings />} />
             <Route path="docprocess" element={<DocProcessSettings />} />
             <Route path="quickphrase" element={<QuickPhraseSettings />} />
             <Route path="mcp/*" element={<MCPSettings />} />
@@ -160,8 +134,6 @@ const SettingsPage: FC = () => {
             <Route path="general/*" element={<GeneralSettings />} />
             <Route path="display" element={<DisplaySettings />} />
             <Route path="shortcut" element={<ShortcutSettings />} />
-            <Route path="quickAssistant" element={<QuickAssistantSettings />} />
-            <Route path="selectionAssistant" element={<SelectionAssistantSettings />} />
             <Route path="data" element={<DataSettings />} />
             <Route path="about" element={<AboutSettings />} />
           </Routes>
