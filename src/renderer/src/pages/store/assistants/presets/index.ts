@@ -57,9 +57,17 @@ export function useSystemAssistantPresets() {
         // 如果没有远程配置或获取失败，加载本地代理
         if (resourcesPath) {
           try {
+            // 优先加载学院专用助手
+            const hnjmAgentsData = await window.api.fs.read(`${resourcesPath}/data/agents-hnjm.json`, 'utf-8')
+            const hnjmAgents = JSON.parse(hnjmAgentsData) as AssistantPreset[]
+
+            // 加载通用助手作为补充
             const fileName = currentLanguage === 'zh-CN' ? 'agents-zh.json' : 'agents-en.json'
             const localAgentsData = await window.api.fs.read(`${resourcesPath}/data/${fileName}`, 'utf-8')
-            _agents = JSON.parse(localAgentsData) as AssistantPreset[]
+            const localAgents = JSON.parse(localAgentsData) as AssistantPreset[]
+
+            // 学院助手优先显示
+            _agents = [...hnjmAgents, ...localAgents]
           } catch (error) {
             logger.error('Failed to load local agents:', error as Error)
           }
