@@ -1,27 +1,21 @@
-import { GithubOutlined } from '@ant-design/icons'
 import IndicatorLight from '@renderer/components/IndicatorLight'
 import { HStack } from '@renderer/components/Layout'
 import UpdateDialogPopup from '@renderer/components/Popups/UpdateDialogPopup'
 import { APP_NAME, AppLogo } from '@renderer/config/env'
 import { useTheme } from '@renderer/context/ThemeProvider'
-import { useMinappPopup } from '@renderer/hooks/useMinappPopup'
 import { useRuntime } from '@renderer/hooks/useRuntime'
 import { useSettings } from '@renderer/hooks/useSettings'
-import i18n from '@renderer/i18n'
 import { useAppDispatch } from '@renderer/store'
 import { setUpdateState } from '@renderer/store/runtime'
-import { ThemeMode } from '@renderer/types'
 import { runAsyncFunction } from '@renderer/utils'
 import { UpgradeChannel } from '@shared/config/constant'
 import { Avatar, Button, Progress, Radio, Row, Switch, Tag, Tooltip } from 'antd'
 import { debounce } from 'lodash'
-import { Bug, Building2, Github, Globe, Mail, Rss } from 'lucide-react'
-import { BadgeQuestionMark } from 'lucide-react'
+import { Bug, Globe, Mail } from 'lucide-react'
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Markdown from 'react-markdown'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { SettingContainer, SettingDivider, SettingGroup, SettingRow, SettingTitle } from '.'
@@ -34,7 +28,6 @@ const AboutSettings: FC = () => {
   const { theme } = useTheme()
   const dispatch = useAppDispatch()
   const { update } = useRuntime()
-  const { openSmartMinapp } = useMinappPopup()
 
   const onCheckUpdate = debounce(
     async () => {
@@ -67,30 +60,16 @@ const AboutSettings: FC = () => {
   }
 
   const mailto = async () => {
-    const email = 'support@cherry-ai.com'
-    const subject = `${APP_NAME} Feedback`
+    const email = 'admin@yjgj.cn' // 学院邮箱
+    const subject = `${APP_NAME} 反馈`
     const version = (await window.api.getAppInfo()).version
     const platform = window.electron.process.platform
-    const url = `mailto:${email}?subject=${subject}&body=%0A%0AVersion: ${version} | Platform: ${platform}`
+    const url = `mailto:${email}?subject=${subject}&body=%0A%0A版本: ${version} | 平台: ${platform}`
     onOpenWebsite(url)
   }
 
   const debug = async () => {
     await window.api.devTools.toggle()
-  }
-
-  const showEnterprise = async () => {
-    onOpenWebsite('https://cherry-ai.com/enterprise')
-  }
-
-  const showReleases = async () => {
-    const { appPath } = await window.api.getAppInfo()
-    openSmartMinapp({
-      id: 'cherrystudio-releases',
-      name: t('settings.about.releases.title'),
-      url: `file://${appPath}/resources/cherry-studio/releases.html?theme=${theme === ThemeMode.dark ? 'dark' : 'light'}`,
-      logo: AppLogo
-    })
   }
 
   const currentChannelByVersion =
@@ -167,28 +146,17 @@ const AboutSettings: FC = () => {
     setAutoCheckUpdate(autoCheckUpdate)
   }, [autoCheckUpdate, setAutoCheckUpdate])
 
-  const onOpenDocs = () => {
-    const isChinese = i18n.language.startsWith('zh')
-    window.api.openWebsite(
-      isChinese ? 'https://docs.cherry-ai.com/' : 'https://docs.cherry-ai.com/cherry-studio-wen-dang/en-us'
-    )
-  }
-
   return (
     <SettingContainer theme={theme}>
       <SettingGroup theme={theme}>
         <SettingTitle>
           {t('settings.about.title')}
-          <HStack alignItems="center">
-            <Link to="https://github.com/CherryHQ/cherry-studio">
-              <GithubOutlined style={{ marginRight: 4, color: 'var(--color-text)', fontSize: 20 }} />
-            </Link>
-          </HStack>
+          <HStack alignItems="center" />
         </SettingTitle>
         <SettingDivider />
         <AboutHeader>
           <Row align="middle">
-            <AvatarWrapper onClick={() => onOpenWebsite('https://github.com/CherryHQ/cherry-studio')}>
+            <AvatarWrapper onClick={() => onOpenWebsite('https://www.yjgj.cn')}>
               {update.downloadProgress > 0 && (
                 <ProgressCircle
                   type="circle"
@@ -203,11 +171,8 @@ const AboutSettings: FC = () => {
             </AvatarWrapper>
             <VersionWrapper>
               <Title>{APP_NAME}</Title>
-              <Description>{t('settings.about.description')}</Description>
-              <Tag
-                onClick={() => onOpenWebsite('https://github.com/CherryHQ/cherry-studio/releases')}
-                color="cyan"
-                style={{ marginTop: 8, cursor: 'pointer' }}>
+              <Description>河南经济贸易技师学院智能助手平台</Description>
+              <Tag color="cyan" style={{ marginTop: 8 }}>
                 v{version}
               </Tag>
             </VersionWrapper>
@@ -281,52 +246,18 @@ const AboutSettings: FC = () => {
       <SettingGroup theme={theme}>
         <SettingRow>
           <SettingRowTitle>
-            <BadgeQuestionMark size={18} />
-            {t('docs.title')}
-          </SettingRowTitle>
-          <Button onClick={onOpenDocs}>{t('settings.about.website.button')}</Button>
-        </SettingRow>
-        <SettingDivider />
-        <SettingRow>
-          <SettingRowTitle>
-            <Rss size={18} />
-            {t('settings.about.releases.title')}
-          </SettingRowTitle>
-          <Button onClick={showReleases}>{t('settings.about.releases.button')}</Button>
-        </SettingRow>
-        <SettingDivider />
-        <SettingRow>
-          <SettingRowTitle>
             <Globe size={18} />
-            {t('settings.about.website.title')}
+            学院官网
           </SettingRowTitle>
-          <Button onClick={() => onOpenWebsite('https://cherry-ai.com')}>{t('settings.about.website.button')}</Button>
-        </SettingRow>
-        <SettingDivider />
-        <SettingRow>
-          <SettingRowTitle>
-            <Github size={18} />
-            {t('settings.about.feedback.title')}
-          </SettingRowTitle>
-          <Button onClick={() => onOpenWebsite('https://github.com/CherryHQ/cherry-studio/issues/new/choose')}>
-            {t('settings.about.feedback.button')}
-          </Button>
-        </SettingRow>
-        <SettingDivider />
-        <SettingRow>
-          <SettingRowTitle>
-            <Building2 size={18} />
-            {t('settings.about.enterprise.title')}
-          </SettingRowTitle>
-          <Button onClick={showEnterprise}>{t('settings.about.website.button')}</Button>
+          <Button onClick={() => onOpenWebsite('https://www.yjgj.cn')}>访问</Button>
         </SettingRow>
         <SettingDivider />
         <SettingRow>
           <SettingRowTitle>
             <Mail size={18} />
-            {t('settings.about.contact.title')}
+            技术支持
           </SettingRowTitle>
-          <Button onClick={mailto}>{t('settings.about.contact.button')}</Button>
+          <Button onClick={mailto}>联系我们</Button>
         </SettingRow>
         <SettingDivider />
         <SettingRow>
@@ -336,6 +267,13 @@ const AboutSettings: FC = () => {
           </SettingRowTitle>
           <Button onClick={debug}>{t('settings.about.debug.open')}</Button>
         </SettingRow>
+      </SettingGroup>
+      <SettingGroup theme={theme}>
+        <CopyrightInfo>
+          <p>© 2024 河南经济贸易技师学院</p>
+          <p>基于 Cherry Studio 开源项目定制开发</p>
+          <p>仅供学院内部教学使用</p>
+        </CopyrightInfo>
       </SettingGroup>
     </SettingContainer>
   )
@@ -409,6 +347,17 @@ const UpdateNotesWrapper = styled.div`
 
   p {
     margin: 0;
+  }
+`
+
+const CopyrightInfo = styled.div`
+  text-align: center;
+  color: var(--color-text-3);
+  font-size: 12px;
+  padding: 10px 0;
+
+  p {
+    margin: 4px 0;
   }
 `
 
