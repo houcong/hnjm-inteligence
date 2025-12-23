@@ -12,7 +12,7 @@ import { windowService } from './WindowService'
 
 const logger = loggerService.withContext('ProtocolClient')
 
-export const CHERRY_STUDIO_PROTOCOL = 'cherrystudio'
+export const CHERRY_STUDIO_PROTOCOL = 'hnjmai'
 
 export function registerProtocolClient(app: Electron.App) {
   if (process.defaultApp) {
@@ -55,7 +55,7 @@ export function handleProtocolUrl(url: string) {
 
 const execAsync = promisify(exec)
 
-const DESKTOP_FILE_NAME = 'cherrystudio-url-handler.desktop'
+const DESKTOP_FILE_NAME = 'hnjmai-url-handler.desktop'
 
 /**
  * Sets up deep linking for the AppImage build on Linux by creating a .desktop file.

@@ -10,11 +10,11 @@ const swaggerOptions: swaggerJSDoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Cherry Studio API',
+      title: '河南经贸智能助手 API',
       version: '1.0.0',
-      description: 'OpenAI-compatible API for Cherry Studio with additional Cherry-specific endpoints',
+      description: 'OpenAI-compatible API for 河南经贸智能助手 with additional Cherry-specific endpoints',
       contact: {
-        name: 'Cherry Studio',
+        name: '河南经贸智能助手',
         url: 'https://github.com/CherryHQ/cherry-studio'
       }
     },
@@ -30,7 +30,7 @@ const swaggerOptions: swaggerJSDoc.Options = {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-          description: 'Use the API key from Cherry Studio settings'
+          description: 'Use the API key from 河南经贸智能助手 settings'
         }
       },
       schemas: {
@@ -193,7 +193,7 @@ export function setupOpenAPIDocumentation(app: Express) {
         .swagger-ui .topbar { display: none; }
         .swagger-ui .info .title { color: #1890ff; }
       `,
-        customSiteTitle: 'Cherry Studio API Documentation'
+        customSiteTitle: '河南经贸智能助手 API Documentation'
       })
     )
 

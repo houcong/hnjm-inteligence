@@ -721,9 +721,9 @@ class CodeToolsService {
         const batContent = [
           '@echo off',
           'chcp 65001 >nul 2>&1', // Switch to UTF-8 code page for international path support
-          `title ${cliTool} - Cherry Studio`, // Set window title in bat file
+          `title ${cliTool} - 河南经贸智能助手`, // Set window title in bat file
           'echo ================================================',
-          'echo Cherry Studio CLI Tool Launcher',
+          'echo 河南经贸智能助手 CLI Tool Launcher',
           `echo Tool: ${cliTool}`,
           `echo Directory: ${directory}`,
           `echo Time: ${new Date().toLocaleString()}`,

@@ -1,11 +1,11 @@
 {
-  "name": "CherryStudio",
-  "version": "1.7.6",
+  "name": "HNJM-AI",
+  "version": "1.0.0",
   "private": true,
-  "description": "A powerful AI assistant for producer.",
+  "description": "河南经济贸易技师学院智能助手平台",
   "main": "./out/main/index.js",
-  "author": "support@cherry-ai.com",
-  "homepage": "https://github.com/CherryHQ/cherry-studio",
+  "author": "河南经济贸易技师学院",
+  "homepage": "https://www.yjgj.cn/index.htm",
   "engines": {
     "node": ">=22.0.0"
   },
