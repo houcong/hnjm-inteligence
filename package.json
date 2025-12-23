@@ -1,6 +1,6 @@
 {
   "name": "HNJM-AI",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "河南经济贸易技师学院智能助手平台",
   "main": "./out/main/index.js",

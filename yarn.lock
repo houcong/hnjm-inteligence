@@ -10043,9 +10043,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"CherryStudio@workspace:.":
+"HNJM-AI@workspace:.":
   version: 0.0.0-use.local
-  resolution: "CherryStudio@workspace:."
+  resolution: "HNJM-AI@workspace:."
   dependencies:
     "@agentic/exa": "npm:^7.3.3"
     "@agentic/searxng": "npm:^7.3.3"
