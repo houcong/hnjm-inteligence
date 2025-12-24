@@ -6,6 +6,11 @@ import { getMessageContent } from '@renderer/aiCore/plugins/searchOrchestrationP
 import { DEFAULT_KNOWLEDGE_DOCUMENT_COUNT, DEFAULT_KNOWLEDGE_THRESHOLD } from '@renderer/config/constant'
 import { getEmbeddingMaxContext } from '@renderer/config/embedings'
 import { REFERENCE_PROMPT } from '@renderer/config/prompts'
+import {
+  getAwsBedrockAccessKeyId,
+  getAwsBedrockRegion,
+  getAwsBedrockSecretAccessKey
+} from '@renderer/hooks/useAwsBedrock'
 import { addSpan, endSpan } from '@renderer/services/SpanManagerService'
 import store from '@renderer/store'
 import type { Assistant } from '@renderer/types'
@@ -83,8 +88,11 @@ export const getKnowledgeBaseParams = (base: KnowledgeBase): KnowledgeBaseParams
     embedApiClient: {
       model: base.model.id,
       provider: base.model.provider,
-      apiKey: aiProvider.getApiKey() || 'secret',
-      baseURL
+      apiKey:
+        base.model.provider === 'aws-bedrock'
+          ? `${getAwsBedrockAccessKeyId()}:${getAwsBedrockSecretAccessKey()}`
+          : aiProvider.getApiKey() || 'secret',
+      baseURL: base.model.provider === 'aws-bedrock' ? getAwsBedrockRegion() : baseURL
     },
     chunkSize,
     chunkOverlap: base.chunkOverlap,

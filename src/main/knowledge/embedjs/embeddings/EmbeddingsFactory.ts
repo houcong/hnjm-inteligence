@@ -4,6 +4,7 @@ import { OpenAiEmbeddings } from '@cherrystudio/embedjs-openai'
 import type { ApiClient } from '@types'
 import { net } from 'electron'
 
+import { BedrockEmbeddings } from './BedrockEmbeddings'
 import { VoyageEmbeddings } from './VoyageEmbeddings'
 
 export default class EmbeddingsFactory {
@@ -26,6 +27,17 @@ export default class EmbeddingsFactory {
           // @ts-ignore expected
           'encoding-format': 'float'
         }
+      })
+    }
+    if (provider === 'aws-bedrock') {
+      // apiKey format: accessKeyId:secretAccessKey
+      // baseURL format: region (e.g., us-east-1)
+      const [accessKeyId, secretAccessKey] = apiKey.split(':')
+      return new BedrockEmbeddings({
+        modelId: model,
+        region: baseURL || 'us-east-1',
+        accessKeyId,
+        secretAccessKey
       })
     }
     // NOTE: Azure OpenAI 也走 OpenAIEmbeddings, baseURL是https://xxxx.openai.azure.com/openai/v1

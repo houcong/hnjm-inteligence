@@ -3,7 +3,7 @@ import { getLowerBaseModelName, isUserSelectedModelType } from '@renderer/utils'
 
 // Embedding models
 export const EMBEDDING_REGEX =
-  /(?:^text-|embed|bge-|e5-|LLM2Vec|retrieval|uae-|gte-|jina-clip|jina-embeddings|voyage-)/i
+  /(?:^text-|embed|bge-|e5-|LLM2Vec|retrieval|uae-|gte-|jina-clip|jina-embeddings|voyage-|titan-embed|cohere\.embed)/i
 
 // Rerank models
 export const RERANKING_REGEX = /(?:rerank|re-rank|re-ranker|re-ranking|retrieval|retriever)/i
